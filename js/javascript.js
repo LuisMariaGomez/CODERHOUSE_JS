@@ -107,7 +107,7 @@ function GenerarInformePorConsola() {
     });
 }
 
-// LLAMADA A LAS FUNCIONES
+// LLAMADA A LAS FUNCIONES -----------------------------------------------------------------------------------------------------------------------------
 
 var LlamadasActivas = true;
 
