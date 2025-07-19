@@ -108,8 +108,16 @@ function GenerarInformePorConsola() {
 // LLAMADA A LAS FUNCIONES
 
 var LlamadasActivas = true;
+
 while(LlamadasActivas){
-    switch(parseInt(prompt("Seleccionar Accion: \n1) Agregar Producto\n2) Agregar Stock\n3) Obtener informe\n4) Salir"))){
+
+    const Entrada = prompt("Seleccionar Accion: \n1) Agregar Producto\n2) Agregar Stock\n3) Obtener informe\n4) Salir")
+    if(Entrada == null){
+        alert("Cancelado")
+        break;
+    }
+
+    switch(parseInt(Entrada)){
         case(1):
             CrearProducto();
             break;
@@ -123,7 +131,7 @@ while(LlamadasActivas){
             LlamadasActivas = false;
             break;
         default:
-            alert("Entrada invalida, volver a ingresar")
+            alert("Entrada invalida, volver a ingresar");
             break;
     }
 }
