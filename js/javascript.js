@@ -6,7 +6,11 @@
 // 2- CargarStock: Agregar unidades al stock del producto ingresado
 // 3- GenerarInforme: Generar un "informe" de los productos (nombre, precio y stock)
 
-// VALIDACIONES
+// LISTA QUE FUNCIONA COMO BASE DE DATOS -----------------------------------------------------------------------------------------------------------------------------
+
+let ListaProductos = []; 
+
+// VALIDACIONES -----------------------------------------------------------------------------------------------------------------------------
 
 function ValidacioNombre(nombreProductoParValidar){
     if (nombreProductoParValidar === null) {  // Caso que cancelen
@@ -38,8 +42,6 @@ function ProductosCargados(){
 }
 
 // CREAR PRODUCTO -----------------------------------------------------------------------------------------------------------------------------
-
-let ListaProductos = []; // Lista de prodcutos que sera nuestra "Base de datos"
 
 function CrearProducto() {
     
