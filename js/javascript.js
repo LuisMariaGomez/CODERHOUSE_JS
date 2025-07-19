@@ -57,7 +57,7 @@ function CrearProducto() {
 
     const Producto = [nombreValidado, precioValidado, 0]; //Seteamos el stock en 0
 
-    ListaProductos.push(Producto);  // Guardo el objeto
+    ListaProductos.push(Producto);  // Guardo el poducto
     alert(`Producto agregado correctamente.\nNombre:${ListaProductos[ListaProductos.length - 1][0]}\nPrecio: ${ListaProductos[ListaProductos.length - 1][1]}`);
 }
 
