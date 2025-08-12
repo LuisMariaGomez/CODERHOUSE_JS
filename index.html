@@ -1,14 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curso javascript</title>
-    <link rel="stylesheet" href="">
-    <!-- JS -->
-    <script defer src="./js/javascript.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Carga Arqueros</title>
+  <link rel="stylesheet" href="./styles/styles.css" />
+  <script defer src="./js/main.js"></script>
 </head>
 <body>
-  <h1>Gomez Luis Maria</h1>
+  <div class="container">
+    <h1>Bienvenido al Sistema de torneos de arquería Indoor</h1>
+    <h3>Paso1: Registro de 8 Arqueros</h2>
+
+    <form id="formArquero">
+        <label for="nombre">Nombre del Arquero</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez" required>
+
+        <label for="club">Club</label>
+        <input type="text" id="club" name="club" placeholder="Ej: Club de Tiro San Martín" required>
+
+        <label for="categoria">Categoría</label>
+        <select id="categoria" name="categoria" required>
+            <option value="">Seleccione una categoría</option>
+            <option value="Senior">Senior</option>
+            <option value="Junior">Junior</option>
+            <option value="Master">Master</option>
+        </select>
+
+        <button id="guardarArquero" type="button">Guardar Arquero</button>
+        <button id="borrarArqueros" type="button">Borrar Arqueros</button>
+        <h3 id="mensajeDeAlerta" class="error"></h3>
+    </form>
+  </div>
+  <div class="container">
+    <h2 id="tituloArquerosRegistrados">Arqueros Registrados: 0/8</h2>
+    <div id="listaArqueros"></div>
 </body>
 </html>
