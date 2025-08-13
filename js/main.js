@@ -46,15 +46,15 @@ function elimiarArqueros() { // Esta función se encarga de eliminar todos los a
     document.getElementById("formArquero").reset();
     document.getElementById("mensajeDeAlerta").innerText = "Todos los arqueros han sido eliminados.";
     const botonInicioTorneo = document.getElementById("botonInicioTorneo");
-    if (botonInicioTorneo) {
-        formulario.removeChild(botonInicioTorneo.parentElement); // El botón está dentro de un <a>
+    if (botonInicioTorneo) { // Verificamos si esta en el HTML antes de intentar eliminarlo, ya que si no tenemos los 8 arqueros no existe y da error al querer eliminarlo
+        formulario.removeChild(botonInicioTorneo.parentElement); // El botón está dentro de un <a> asi que eliminamos el padre
     }
-    formulario.insertBefore(botonGuardar, borrarArqueros); // Lo agregamos en la posición correcta
+    formulario.insertBefore(botonGuardar, borrarArqueros); // Lo agregamos en la posición correcta, sino lo agrega al final (no es la posicion original)
     rellenarListaArquerosYActualizarContador();
 }
 
 const botonEliminar = document.getElementById("borrarArqueros");
-if (botonEliminar) { // Verificamos si el botón existe para evitar errores
+if (botonEliminar) { // Verificamos si el botón existe para evitar errores si no está en el HTML
     botonEliminar.onclick = () => {
         elimiarArqueros();
     }
@@ -75,23 +75,17 @@ if (tituloArquerosRegistrados) { // Verificamos si el título existe para evitar
             let divArquero = document.createElement("div");
 
             let nombre = document.createElement("strong");
-            nombre.textContent = "Nombre: ";
-            let nombreValor = document.createTextNode(arquero.nombre);
+            nombre.textContent = "Nombre: " + arquero.nombre;
 
             let club = document.createElement("strong");
-            club.textContent = " Club: ";
-            let clubValor = document.createTextNode(arquero.club);
+            club.textContent = " Club: " + arquero.club;
 
             let categoria = document.createElement("strong");
-            categoria.textContent = " Categoría: ";
-            let categoriaValor = document.createTextNode(arquero.categoria);
+            categoria.textContent = " Categoría: " + arquero.categoria;
 
             divArquero.appendChild(nombre);
-            divArquero.appendChild(nombreValor);
             divArquero.appendChild(club);
-            divArquero.appendChild(clubValor);
             divArquero.appendChild(categoria);
-            divArquero.appendChild(categoriaValor);
 
             ListaDeArquerosGuardados.appendChild(divArquero);
         });
@@ -134,31 +128,25 @@ const arquerosEnLocalStorage = JSON.parse(localStorage.getItem('arqueros'));
 let container_casificatoria = document.getElementById("container_casificatoria");
 let contenedoresArqueros = document.getElementById("contenedorPorArquero");
 if (container_casificatoria && arquerosEnLocalStorage && contenedoresArqueros) {
-    arquerosEnLocalStorage.forEach(arquero => {
+arquerosEnLocalStorage.forEach(arquero => {
         let divArquero = document.createElement("div");
         divArquero.className = "arquero";
 
         // Nombre
         let nombre = document.createElement("strong");
-        nombre.textContent = "Nombre: ";
-        let nombreValor = document.createTextNode(arquero.nombre);
+        nombre.textContent = "Nombre: " + arquero.nombre;
 
         // Club
         let club = document.createElement("strong");
-        club.textContent = " Club: ";
-        let clubValor = document.createTextNode(arquero.club);
+        club.textContent = " Club: " + arquero.club;
 
         // Categoría
         let categoria = document.createElement("strong");
-        categoria.textContent = " Categoría: ";
-        let categoriaValor = document.createTextNode(arquero.categoria);
+        categoria.textContent = " Categoría: " + arquero.categoria;
 
         divArquero.appendChild(nombre);
-        divArquero.appendChild(nombreValor);
         divArquero.appendChild(club);
-        divArquero.appendChild(clubValor);
         divArquero.appendChild(categoria);
-        divArquero.appendChild(categoriaValor);
 
         // Puntos (solo el título, los puntos se calculan después)
         let puntos = document.createElement("p");
@@ -251,3 +239,5 @@ if (container_casificatoria && arquerosEnLocalStorage && contenedoresArqueros) {
         }
     });
 }
+
+// Perdon por el tema de a veces usar if(existe tal elemento), no sabia si dividir el código en dos archivos o dejarlo todo junto, espero que no sea un problema, si lo es, puedo dividirlo en dos archivos y dejar el código de la clasificatoria en otro archivo js.
