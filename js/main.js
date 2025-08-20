@@ -146,7 +146,7 @@ if (container_casificatoria && arquerosEnLocalStorage && contenedoresArqueros) {
 
     let botonFinalizarClasificatoria = document.getElementById("terminarClasificatoria");
     botonFinalizarClasificatoria.onclick = () => {
-        arquerosEnLocalStorage.forEach(arquero => {
+        arquerosEnLocalStorage.forEach(arquero => { // Nota: este bloque usa bucles anidados con valores fijos (3 tiradas y 3 tiros por tirada). Para escalabilidad, reemplaza esos 3 por cantidadTiradas y cantidadTirosPorTiradas (y maneja arqueros dinámicamente) sin cambiar la lógica de puntuación (x = 10).
             let ListapuntosArquero = [];
             let moscasArquero = 0;
             for (let i = 0; i < 3; i++) {
