@@ -8,7 +8,7 @@ let ListaDeArqueros = [];
 let idArquero = 1;
 
 // Cargar Arqueros
-// Si ya hay 8 arqueros, ya no hay botón de guardar arqueros, se habilita el botón de iniciar torneo
+// Si ya hay 8 arqueros, ya no hay botón de guardar arqueros (asi que no se puede acceder a esta funcion), se habilita el botón de iniciar torneo (para pasar a la siguiente instancia)
 function agregarArquero() { // Esta función se encarga de agregar un arquero al array ListaDeArqueros a través del botón AgregarArquero
     const nombre = document.getElementById("nombre").value;
     const club = document.getElementById("club").value;
@@ -17,7 +17,7 @@ function agregarArquero() { // Esta función se encarga de agregar un arquero al
     if (nombre && club && categoria) {
         document.getElementById("mensajeDeAlerta").innerText = ""; // Limpiamos el mensaje de alerta
         ListaDeArqueros.push({ id: idArquero++, nombre: nombre, club: club, categoria: categoria });
-        document.getElementById("formArquero").reset();
+        document.getElementById("formArquero").reset(); // Limpiamos el formulario después de agregar el arquero
     } else {
         document.getElementById("mensajeDeAlerta").innerText = "Por favor, completa todos los campos.";
         return;
@@ -65,31 +65,26 @@ let tituloArquerosRegistrados = document.getElementById("tituloArquerosRegistrad
 let ListaDeArquerosGuardados = document.getElementById("listaArqueros");
 
 // Esta función se encarga de rellenar la lista de arqueros guardados y actualizar el contador de arqueros registrados
-// También habilita el botón de iniciar torneo si hay 8 arqueros registrados, elimina el botón de guardar arqueros
-// y guarda los arqueros en localStorage
+// También habilita el botón de iniciar torneo si hay 8 arqueros registrados eliminando tambien el botón de guardar arqueros
+// Al final guarda los arqueros en localStorage
+
 if (tituloArquerosRegistrados) { // Verificamos si el título existe para evitar errores si no está en el HTML
     function rellenarListaArquerosYActualizarContador() {
-        // Limpiamos la lista antes de rellenarla
-        ListaDeArquerosGuardados.textContent = "";
+        ListaDeArquerosGuardados.innerHTML = "";    // Limpiamos la lista antes de rellenarla, sino de la forma en que lo planteo haria algo como 
+                                                    // arquero1, al agregar otro: arquero1 - arquero1 -arquero2, al agregar otro: arquero1 - arquero1 -arquero2- arquero1 -arquero2 -arquero 3 
+                                                    // (o sea va agregando la lista total al final manteniendo el contenido anterior)
         ListaDeArqueros.forEach(arquero => {
-            let divArquero = document.createElement("div");
-
-            let nombre = document.createElement("strong");
-            nombre.textContent = "Nombre: " + arquero.nombre;
-
-            let club = document.createElement("strong");
-            club.textContent = " Club: " + arquero.club;
-
-            let categoria = document.createElement("strong");
-            categoria.textContent = " Categoría: " + arquero.categoria;
-
-            divArquero.appendChild(nombre);
-            divArquero.appendChild(club);
-            divArquero.appendChild(categoria);
-
-            ListaDeArquerosGuardados.appendChild(divArquero);
+            ListaDeArquerosGuardados.innerHTML += `
+                <div>
+                    <strong>Nombre: ${arquero.nombre}</strong>
+                    <strong> Club: ${arquero.club}</strong>
+                    <strong> Categoría: ${arquero.categoria}</strong>
+                </div>
+            `;
         });
+
         tituloArquerosRegistrados.textContent = `Arqueros Registrados: ${ListaDeArqueros.length}/8`;
+
         if (ListaDeArqueros.length == 8) { // Si hay 8 arqueros, habilitamos el botón de torneo y deshabilitamos el botón de guardar
             tituloArquerosRegistrados.textContent += " - Torneo Habilitado";
 
@@ -128,50 +123,25 @@ const arquerosEnLocalStorage = JSON.parse(localStorage.getItem('arqueros'));
 let container_casificatoria = document.getElementById("container_casificatoria");
 let contenedoresArqueros = document.getElementById("contenedorPorArquero");
 if (container_casificatoria && arquerosEnLocalStorage && contenedoresArqueros) {
-arquerosEnLocalStorage.forEach(arquero => {
-        let divArquero = document.createElement("div");
-        divArquero.className = "arquero";
-
-        // Nombre
-        let nombre = document.createElement("strong");
-        nombre.textContent = "Nombre: " + arquero.nombre;
-
-        // Club
-        let club = document.createElement("strong");
-        club.textContent = " Club: " + arquero.club;
-
-        // Categoría
-        let categoria = document.createElement("strong");
-        categoria.textContent = " Categoría: " + arquero.categoria;
-
-        divArquero.appendChild(nombre);
-        divArquero.appendChild(club);
-        divArquero.appendChild(categoria);
-
-        // Puntos (solo el título, los puntos se calculan después)
-        let puntos = document.createElement("p");
-        puntos.textContent = "Puntos:";
-        divArquero.appendChild(puntos);
-
-        // Tiradas
+    contenedoresArqueros.innerHTML = "";
+    arquerosEnLocalStorage.forEach(arquero => {
+        let tiradasHTML = "";
         for (let i = 0; i < 3; i++) {
-            let divTirada = document.createElement("div");
-            divTirada.className = "divTirada";
-            let tiradaTitulo = document.createElement("strong");
-            tiradaTitulo.textContent = `Tirada ${i + 1}:`;
-            divTirada.appendChild(tiradaTitulo);
-
+            tiradasHTML += `<div class="divTirada"><strong>Tirada ${i + 1}:</strong>`;
             for (let j = 0; j < 3; j++) {
-                let tiro = document.createElement("input");
-                tiro.required = true;
-                tiro.className = "tiro";
-                tiro.placeholder = "Tiro " + (`${j}`);
-                tiro.id = `tiro-${arquero.id}-${i}-${j}`;
-                divTirada.appendChild(tiro);
+                tiradasHTML += `<input required class="tiro" placeholder="Tiro ${j}" id="tiro-${arquero.id}-${i}-${j}">`;
             }
-            divArquero.appendChild(divTirada);
+            tiradasHTML += `</div>`;
         }
-        contenedoresArqueros.appendChild(divArquero);
+        contenedoresArqueros.innerHTML += `
+            <div class="arquero">
+                <strong>Nombre: ${arquero.nombre}</strong>
+                <strong> Club: ${arquero.club}</strong>
+                <strong> Categoría: ${arquero.categoria}</strong>
+                <p>Puntos:</p>
+                ${tiradasHTML}
+            </div>
+        `;
     });
 
     let botonFinalizarClasificatoria = document.getElementById("terminarClasificatoria");
@@ -209,22 +179,15 @@ arquerosEnLocalStorage.forEach(arquero => {
 
         // El 1er puesto se enfrenta al 8vo, el 2do al 7mo, etc.
         let contenedorResultadosClasificatoria = document.getElementById("contenedorResultadosClasificatoria");
-        contenedorResultadosClasificatoria.textContent = ""; // Limpiamos el contenedor de resultados
+        contenedorResultadosClasificatoria.innerHTML = ""; // Limpiamos el contenedor de resultados
 
         for (let i = 0; i < (arquerosEnLocalStorage.length) / 2; i++) {
-            let divArquerosEnfrentados = document.createElement("div");
-            divArquerosEnfrentados.className = "ArquerosEnfrentados";
-
-            let parTitulo = document.createElement("strong");
-            parTitulo.textContent = `Par ${i + 1}:`;
-
-            let parTexto = document.createElement("p");
-            parTexto.textContent = `Nombre: ${arquerosEnLocalStorage[i].nombre}, Club: ${arquerosEnLocalStorage[i].club} vs Nombre: ${arquerosEnLocalStorage[(arquerosEnLocalStorage.length - 1) - i].nombre}, Club: ${arquerosEnLocalStorage[(arquerosEnLocalStorage.length - 1) - i].club}`;
-
-            divArquerosEnfrentados.appendChild(parTitulo);
-            divArquerosEnfrentados.appendChild(parTexto);
-
-            contenedorResultadosClasificatoria.appendChild(divArquerosEnfrentados);
+            contenedorResultadosClasificatoria.innerHTML += `
+                <div class="ArquerosEnfrentados">
+                    <strong>Par ${i + 1}:</strong>
+                    <p>Nombre: ${arquerosEnLocalStorage[i].nombre}, Club: ${arquerosEnLocalStorage[i].club} vs Nombre: ${arquerosEnLocalStorage[(arquerosEnLocalStorage.length - 1) - i].nombre}, Club: ${arquerosEnLocalStorage[(arquerosEnLocalStorage.length - 1) - i].club}</p>
+                </div>
+            `;
         }
     };
 
