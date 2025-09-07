@@ -1,39 +1,43 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Carga Arqueros</title>
-  <link rel="stylesheet" href="./styles/styles.css" />
-  <script defer src="./js/main.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Tickets Hermanos</title>
+
+    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notiflix/dist/notiflix-3.2.6.min.css" />
+    <!-- Google Fonts:  "alegreya-sans-sc"; -->
+    <link rel="stylesheet" href="https://use.typekit.net/vuk0olo.css">
+    
+    <!-- Script Report AIO -->
+    <script src="https://cdn.jsdelivr.net/npm/notiflix/dist/notiflix-report-aio-3.2.6.min.js"></script>
+    <script src="./js/main.js" defer></script>
+
+
+
 </head>
 <body>
-  <div class="container">
-    <h1>Bienvenido al Sistema de torneos de arquería Indoor</h1>
-    <h3>Paso1: Registro de 8 Arqueros</h2>
+    <section class="barra_logo">
+        <img src="./imgs/logo.png"/>
+        <p>Bienvenido a los Tickets Hermanos, una plataforma simple para compra de entradas a recitales de Electrónica</p>
+    </section>
+    <section class="container_logo">
 
-    <form id="formArquero">
-        <label for="nombre">Nombre del Arquero</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez" required>
+    <section>
+    <div class="contenedor_boton_carrito" id="contenedor_boton_carrito">
+        <a href="#" class="boton_carrito" id="boton_carrito"><img src="./imgs/carrito.png"/></a>
+        <p class="cantidad_compra" id="cantidad_compra"></p>
+    </div>
 
-        <label for="club">Club</label>
-        <input type="text" id="club" name="club" placeholder="Ej: Club de Tiro San Martín" required>
-
-        <label for="categoria">Categoría</label>
-        <select id="categoria" name="categoria" required>
-            <option value="">Seleccione una categoría</option>
-            <option value="Senior">Senior</option>
-            <option value="Junior">Junior</option>
-            <option value="Master">Master</option>
-        </select>
-
-        <button id="guardarArquero" type="button">Guardar Arquero</button>
-        <button id="borrarArqueros" type="button">Borrar Arqueros</button>
-        <h3 id="mensajeDeAlerta" class="error"></h3>
-    </form>
-  </div>
-  <div class="container">
-    <h2 id="tituloArquerosRegistrados">Arqueros Registrados: 0/8</h2>
-    <div id="listaArqueros"></div>
+    <section class="artistas" id="artistas"></section>
+    <section class="carrito" id="seccion_carrito">
+        <p>Carrito de compras</p>
+        <div></div>
+        <section class="Lista_carrito" id="Lista_carrito">
+        </section>
+        <button id="boton_borrar_carrito">Borrar Carrito</button>
+        <button id="boton_confirmar">Confirmar Compra</button>
+    </section>
 </body>
 </html>

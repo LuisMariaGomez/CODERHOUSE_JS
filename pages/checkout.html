@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Tickets Hermanos - Checkout</title>
+
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notiflix/dist/notiflix-3.2.6.min.css" />
+    <!-- Google Fonts:  "alegreya-sans-sc"; -->
+    <link rel="stylesheet" href="https://use.typekit.net/vuk0olo.css">
+    
+    <!-- Script Libreria  jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Script Report AIO -->
+    <script src="https://cdn.jsdelivr.net/npm/notiflix/dist/notiflix-aio-3.2.6.min.js"></script>
+    <script src="../js/checkout.js" defer></script>
+
+
+</head>
+<body>
+    <section class="seccion_checkout">
+        <div class="seccion_carrito_preview" id="seccion_carrito_preview">
+            
+        </div>
+        <div class="seccion_pago">
+            <div class="titulo_resumen_compra">
+                <p>TOTAL</p>
+            </div>
+            <p class="total_sumado" id="total_sumado"></p>
+            <div class="titulo_resumen_compra">
+                <p>Información de Pago</p>
+            </div>
+            <p class="titulos_labels">Nombre y Apellido del titular de la tarjeta</p>
+            <input class="labels" type="text" id="nombre_titular_tarjeta" />
+            <p class="titulos_labels">DNI Titular</p>
+            <input class="labels" type="text" id="dni_titular" />
+            <p class="titulos_labels">Numero Tarjeta</p>
+            <input class="labels" type="text" id="numero_tarjeta" />
+            <p class="titulos_labels">Codigo de seguridad</p>
+            <input class="labels" type="password" id="codigo_seguridad" />
+            <p class="titulos_labels">Correo Electrónico</p>
+            <input class="labels" type="text" id="corre_electronico" />
+            <button class="boton_confirmar_compra" id="boton_confirmar_compra"> Confirmar pago</button>
+            <button class="boton_cancelar_compra" id="boton_cancelar_compra"> Cancelar compra</button>
+        </div>
+    </section>
+</body>
+</html>
